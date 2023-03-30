@@ -1,0 +1,5 @@
+package bot
+
+func alertOrder() {
+
+}
