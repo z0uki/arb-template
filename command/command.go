@@ -43,12 +43,13 @@ func Run() {
 		if err != nil {
 			log.Printf("Failed to create wallet: %v", err)
 		}
-		err = approveWETH(wallet)
-		if err != nil {
+		if err = approveWETH(wallet); err != nil {
 			log.Printf("Failed to approve WETH: %v", err)
+		} else {
+			log.Printf("Successfully approved!")
 		}
-		log.Printf("Successfully approved!")
+
 	default:
-		fmt.Println("Unknown")
+		fmt.Println("Unknown command")
 	}
 }

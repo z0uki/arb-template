@@ -61,9 +61,9 @@ func approveWETH(wallet *types.Wallet) error {
 
 func waitMined(tx *geth_types.Transaction) error {
 	ec, err := ethclient.Dial(NodeURL)
-	_, err = bind.WaitMined(context.Background(), ec, tx)
 	if err != nil {
 		return err
 	}
-	return nil
+	_, err = bind.WaitMined(context.Background(), ec, tx)
+	return err
 }
