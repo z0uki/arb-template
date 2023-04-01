@@ -1,15 +1,20 @@
 package command
 
 import (
-	"arb-template/bot"
+	"arb-template/config"
+	"arb-template/internal/helper"
 	"fmt"
-	"github.com/manifoldco/promptui"
 	"log"
+
+	"arb-template/bot"
+
+	"github.com/manifoldco/promptui"
 )
 
 const (
 	// Command names
-	Main = "Main"
+	Main    = "Main"
+	Approve = "Approve"
 )
 
 var commonds = []string{Main}
@@ -33,7 +38,16 @@ func Run() {
 		} else {
 			log.Printf("Failed to create bot: %v", err)
 		}
-
+	case Approve:
+		wallet, err := helper.WalletFromPrivateKey(config.Conf.PrivateKey)
+		if err != nil {
+			log.Printf("Failed to create wallet: %v", err)
+		}
+		err = approveWETH(wallet)
+		if err != nil {
+			log.Printf("Failed to approve WETH: %v", err)
+		}
+		log.Printf("Successfully approved!")
 	default:
 		fmt.Println("Unknown")
 	}

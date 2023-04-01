@@ -1,4 +1,5 @@
 build/
+tests/
 config.yml
 config.yaml
 .env

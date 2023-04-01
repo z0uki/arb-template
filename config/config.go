@@ -1,17 +1,22 @@
 package config
 
 import (
-	"gopkg.in/yaml.v3"
 	"io/ioutil"
 	"log"
+
+	"gopkg.in/yaml.v3"
 )
 
 var Conf Config
 
 type Config struct {
-	PrivateKey string `yaml:"privateKey"`
-	EthNode    string `yaml:"ethNode"`
-	EthNodeWss string `yaml:"ethNodeWss"`
+	PrivateKey      string `yaml:"privateKey"`
+	SigningKey      string `yaml:"signingKey"`
+	EthNode         string `yaml:"ethNode"`
+	EthNodeWss      string `yaml:"ethNodeWss"`
+	OpenseaKey      string `yaml:"openseaKey"`
+	FeishuWebhook   string `yaml:"feishuWebhook"`
+	FeishuSecretKey string `yaml:"feishuSecretKey"`
 }
 
 func Load(path string) error {

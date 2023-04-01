@@ -10,11 +10,18 @@ import (
 
 const ethToWei = float64(1000000000000000000)
 
-func EtherToWei(n float64) *big.Int {
+// EthToWei convert eth to wei
+func EthToWei(n float64) *big.Int {
 	return floatToBigInt(n, 18)
 }
 
-func WeiToEther(wei *big.Int) float64 {
+// EthToGwei convert eth to gwei
+func EthToGwei(wei *big.Int) *big.Int {
+	return new(big.Int).Div(wei, big.NewInt(1000000000))
+}
+
+// WeiToEth convert wei to eth
+func WeiToEth(wei *big.Int) float64 {
 	eth := big.NewInt(1000000000000000000)
 	if wei.Cmp(eth) == 1 {
 		var result big.Int
@@ -25,34 +32,23 @@ func WeiToEther(wei *big.Int) float64 {
 	}
 }
 
-func WeiStringToEther(weiStr string) float64 {
-	// convert Wei string to big.Int
+// WeiToEthS convert wei to eth string
+func WeiToEthS(weiStr string) float64 {
 	wei := new(big.Int)
 	if _, ok := wei.SetString(weiStr, 10); !ok {
 		return 0
 	}
 
-	// create big.Float with wei value
 	ethFloat := new(big.Float).SetInt(wei)
 
-	// calculate ETH value by dividing by 10^18
 	ethFloat.Quo(ethFloat, big.NewFloat(1e18))
 
-	// convert big.Float to float64
 	eth, _ := ethFloat.Float64()
 
 	return eth
 }
 
-func floatToBigInt(amount float64, decimal int64) *big.Int {
-	// 6 is our smallest precision
-	if decimal < 6 {
-		return big.NewInt(int64(amount * math.Pow10(int(decimal))))
-	}
-	result := big.NewInt(int64(amount * math.Pow10(6)))
-	return result.Mul(result, big.NewInt(0).Exp(big.NewInt(10), big.NewInt(decimal-6), nil))
-}
-
+// StringToBigInt convert string to big.Int
 func StringToBigInt(s string) *big.Int {
 	var base = 10
 	if strings.Contains(s, "0x") {
@@ -75,4 +71,12 @@ func StringToBigInt(s string) *big.Int {
 		return big.NewInt(0)
 	}
 	return i
+}
+
+func floatToBigInt(amount float64, decimal int64) *big.Int {
+	if decimal < 6 {
+		return big.NewInt(int64(amount * math.Pow10(int(decimal))))
+	}
+	result := big.NewInt(int64(amount * math.Pow10(6)))
+	return result.Mul(result, big.NewInt(0).Exp(big.NewInt(10), big.NewInt(decimal-6), nil))
 }

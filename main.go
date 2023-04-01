@@ -1,9 +1,10 @@
 package main
 
 import (
+	"log"
+
 	"arb-template/command"
 	"arb-template/config"
-	"log"
 )
 
 func main() {

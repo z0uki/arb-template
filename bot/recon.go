@@ -1,5 +1,5 @@
 package bot
 
-func alertOrder() {
-
+func (b *Bot) alertOrder() {
+	//research
 }

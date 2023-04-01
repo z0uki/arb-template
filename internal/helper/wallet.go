@@ -1,9 +1,11 @@
 package helper
 
 import (
-	"arb-template/internal/types"
 	"crypto/ecdsa"
 	"fmt"
+
+	"arb-template/internal/types"
+
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
